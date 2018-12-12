@@ -7,6 +7,7 @@ use App\Library\VariableCollection;
 use App\Buku;
 use App\Kategori;
 use App\Kota;
+use App\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,13 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 class SearchController extends Controller
 {
-    private $variables;
-
-    public function __construct()
-    {
-        //$this->middleware('auth');
-        $this->variables = new VariableCollection();
-    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +24,7 @@ class SearchController extends Controller
      */
 
     public function index(){
-        $bukus = Buku::all();
+        $bukus = Buku::with('user','kategori','kota')->get();
         $kategoris = Kategori::all();
         $kategoriId = @$_GET['cat'];
         $matchedBukus = null; $kategoriName = null;
@@ -52,7 +47,7 @@ class SearchController extends Controller
 
     public function searching(Request $request)
     {
-        $bukus = Buku::all();
+        $bukus = Buku::with('user')->get();;
         $kategoris = Kategori::all();
         $kategoriId = @$_GET['cat'];
         $matchedBukus = null; $kategoriName = null;

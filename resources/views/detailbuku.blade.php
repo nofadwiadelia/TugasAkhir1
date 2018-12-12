@@ -69,6 +69,7 @@
                         <h6>
                             <a href="#" class="judul" > {{ $buku->judul }}</a>
                         </h6>
+                        <h6>Kategori : {{ $buku->kategori->kategori_name }}</h6>
                         <h6>Penulis : {{ $buku->penulis }}</h6>
                         <h6>Penerbit : {{ $buku->penerbit }}</h6>
                         <h6>ISBN : {{ $buku->isbn }}</h6>
@@ -78,6 +79,7 @@
                             <i class="fa fa-map-marker"></i> {{ $buku->harga }}
                         </div>
                         <br>
+                        <h6>Tersedia di : {{ $buku->user->name }} ( {{$buku->user->alamat}} , {{$buku->user->kota}} )</h6>
                         <h6>Deskripsi : </h6>
                         <br>
                         <p>{{ $buku->deskripsi }}</p>

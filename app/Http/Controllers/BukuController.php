@@ -27,9 +27,10 @@ class BukuController extends Controller
 
     public function index()
     {
-        $bukus = Buku::all();
-        $kategoris = Kategori::select('id', 'kategori_name')->get();
-        $kotas = Kota::select('id', 'kota_name')->get();
+        // $bukus = Buku::all();
+        $bukus = Buku::get();
+        // $kategoris = Kategori::select('id', 'kategori_name')->get();
+        // $kotas = Kota::select('id', 'kota_name')->get();
 
         return view('buku',compact('bukus','kategoris','kotas'));
     }
@@ -73,6 +74,7 @@ class BukuController extends Controller
         $bukus->harga = $request->harga;
         $bukus->deskripsi = $request->deskripsi;
         $bukus->stok = $request->stok;
+        $bukus->user()->associate($request->user());
         $bukus->save();
         return redirect()->route('buku.index')->with('alert-success','Berhasil Menambahkan Data!');
     }

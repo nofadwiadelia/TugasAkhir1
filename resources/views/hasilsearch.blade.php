@@ -104,22 +104,36 @@
             <div class="col-md-12">
             @if (count($hasil))
             <div class="card-panel green white-text">Hasil pencarian : <b>{{$query}}</b></div>
-            @foreach($hasil as $buku)
-              <div class="col-md-2 col-sm-6 col-xs-12">
-                      <a href="#" >
-                          <img class="img-responsive img-thumbnail" src="{{ URL::to('uploads/file/'.$buku->gambar) }}" style="width: 150px; height: 200px;" alt="Generic placeholder image">
-                      </a>
-                      <center><h6>
-                        <a href="/detailbuku?buku_id={{ $buku->id }}" class="judul" > {{ $buku->judul }}</a>
-                      </h6></center>
-                      <h6>ISBN : {{ $buku->isbn }}</h6>
-                      <h6>{{ $buku->tahun }}</h6>
-                      <div class="tempat">
-                        <i class="fa fa-map-marker"></i> {{ $buku->harga }}
-                      </div>
-                      <br>
-              </div>
-            @endforeach
+              @php
+                  $i=0;
+                  $jumlahData = 6;
+              @endphp
+              @foreach($hasil as $buku)
+                    @php
+                      if ($i++ % $jumlahData == 0) {
+                          echo "<div class='row margin-bottom-10'>";
+                      }
+                    @endphp
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <a href="#" >
+                            <img class="img-responsive img-thumbnail" src="{{ URL::to('uploads/file/'.$buku->gambar) }}" style="width: 150px; height: 200px;" alt="Generic placeholder image">
+                        </a>
+                        <center><h6>
+                          <a href="/detailbuku?buku_id={{ $buku->id }}" class="judul" > {{ $buku->judul }}</a>
+                        </h6></center>
+                        <h6>ISBN : {{ $buku->isbn }}</h6>
+                        <h6>{{ $buku->tahun }}</h6>
+                        <div class="tempat">
+                          <i class="fa fa-map-marker"></i> {{ $buku->harga }}
+                        </div>
+                        <br>
+                    </div>
+                      @php
+                      if ($i % $jumlahData == 0 || $i == $hasil->count()) {
+                          echo "</div>";
+                      }
+                    @endphp
+                  @endforeach
 
             @else
               <div class="card-panel red darken-3 white-text">Oops.. Buku <b>{{$query}}</b> Tidak Ditemukan</div>

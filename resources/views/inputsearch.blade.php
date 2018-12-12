@@ -108,13 +108,14 @@
                   @php
                     $i=0;
                     $jumlahData = 6;
-                    @endphp
+                  @endphp
+
                   @foreach($matchedBukusK as $buku)
-                      @php
-                          if ($i++ % $jumlahData == 0) {
-                            echo "<div class='row margin-bottom-10'>";
-                            }
-                        @endphp
+                    @php
+                      if ($i++ % $jumlahData == 0) {
+                          echo "<div class='row margin-bottom-10'>";
+                      }
+                    @endphp
                     <div class="col-md-2 col-sm-6 col-xs-12">
                         <a href="#" >
                             <img class="img-responsive img-thumbnail" src="{{ URL::to('uploads/file/'.$buku->gambar) }}" style="width: 150px; height: 200px;" alt="Generic placeholder image">
@@ -129,12 +130,17 @@
                         </div>
                         <br>
                     </div>
-                    
+                      @php
+                      if ($i % $jumlahData == 0 || $i == $matchedBukusK->count()) {
+                          echo "</div>";
+                      }
+                    @endphp
                   @endforeach
                 @else
-                  <p class="alert alert-danger"> books will be added soon</p>
+                  <p class="alert alert-danger"><b>{{ $kategoriName }}</b> books will be added soon</p>
                 @endif
               </div>
+
               @endif
               
               @if(isset($_GET['cat']))
@@ -144,14 +150,14 @@
                   @php
                     $i=0;
                     $jumlahData = 6;
-                    @endphp
+                  @endphp
 
                   @foreach($matchedBukus as $buku)
                     @php
                       if ($i++ % $jumlahData == 0) {
                           echo "<div class='row margin-bottom-10'>";
                       }
-                          @endphp
+                    @endphp
                     <div class="col-md-2 col-sm-6 col-xs-12">
                         <a href="#" >
                             <img class="img-responsive img-thumbnail" src="{{ URL::to('uploads/file/'.$buku->gambar) }}" style="width: 150px; height: 200px;" alt="Generic placeholder image">
@@ -166,6 +172,11 @@
                         </div>
                         <br>
                     </div>
+                      @php
+                      if ($i % $jumlahData == 0 || $i == $matchedBukus->count()) {
+                          echo "</div>";
+                      }
+                    @endphp
                   @endforeach
                 @else
                   <p class="alert alert-danger"><b>{{ $kategoriName }}</b> books will be added soon</p>

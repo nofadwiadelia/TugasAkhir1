@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Buku;
+use App\User;
+use App\Kategori;
+use App\Kota;
 
 class Welcome extends Controller
 {
@@ -14,7 +17,7 @@ class Welcome extends Controller
      */
     public function index()
     {
-        $bukus = Buku::all();
+        $bukus = Buku::with('user','kategori','kota')->get();;
         return view('welcome',compact('bukus'));
     }
 

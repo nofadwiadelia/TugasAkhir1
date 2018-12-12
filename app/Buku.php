@@ -17,5 +17,8 @@ class Buku extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function kategori(){
+        return $this->belongsTo('App\Kategori');
+    }
     
 }

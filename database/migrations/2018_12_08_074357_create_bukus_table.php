@@ -19,13 +19,14 @@ class CreateBukusTable extends Migration
             $table->string('judul');
             $table->string('penulis');
             $table->string('penerbit');
-            $table->unsignedInteger('kategori_id');           
+            $table->integer('kategori_id')->unsigned();           
             $table->string('tahun');
             $table->string('isbn');
-            $table->unsignedInteger('kota_id');           
+            $table->integer('kota_id')->unsigned();           
             $table->string('harga');
             $table->text('deskripsi');
             $table->integer('stok');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }
