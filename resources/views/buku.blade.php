@@ -13,7 +13,7 @@
                 </div>
                 @endif
                 <hr>
-                <button><a href="/buku_create">TAMBAH</a></button><br><br>
+                <button><a href="{{route('buku.create')}}">TAMBAH</a></button><br><br>
                 <table class="table table-bordered">
                   <thead>
                   <tr>
@@ -25,7 +25,7 @@
                       <td>Genre</td>
                       <td>Tahun</td>
                       <td>ISBN</td>
-                      <td>Location</td>
+                      <td>Stok</td>
                       <td>Harga</td>
                       <td>Aksi</td>
                   </tr>
@@ -42,7 +42,7 @@
                           <td>{{ $buku->kategori_id }}</td>
                           <td>{{ $buku->tahun }}</td>
                           <td>{{ $buku->isbn }}</td>
-                          <td>{{ $buku->kota_id }}</td>
+                          <td>{{ $buku->stok }}</td>
                           <td>{{ $buku->harga }}</td>
                             <td>
                               <form action="{{ route('buku.destroy', $buku->id) }}" method="post">

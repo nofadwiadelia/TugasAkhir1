@@ -65,15 +65,16 @@
       <div class="col-md-3 ml-auto mr-auto">
         <div class="card card-login card-plain">
           <div class="card-body">
-              <form action="{{ url('query') }}" method="GET">
+              <form action="{{ route('search.index') }}" method="POST">
                       <div class="input-group no-border input-lg ">
-                          <input type="text" name="q"  class="form-control" placeholder="Search any book">
+                      <!-- search -->
+                          <input type="text" name="keyword"  class="form-control" placeholder="Search any book">
                           <div class="input-group-append">
                             <span class="input-group-text">
                             </span>
                           </div>
                       </div>
-                      <button type="submit" id="search-btn"class="btn btn-primary">Search</button>
+                      <input type="submit" id="search-btn"class="btn btn-primary" value="CARI">
                 </form>
               
                 <center>
@@ -100,100 +101,30 @@
       <div class="row">
           <div class="col-md-12">
 
-          <div class="col-md-12">
-          
-          </div>
-          
+            <div class="col-md-12">
+            @if (count($hasil))
+            <div class="card-panel green white-text">Hasil pencarian : <b>{{$query}}</b></div>
+            @foreach($hasil as $buku)
+              <div class="col-md-2 col-sm-6 col-xs-12">
+                      <a href="#" >
+                          <img class="img-responsive img-thumbnail" src="{{ URL::to('uploads/file/'.$buku->gambar) }}" style="width: 150px; height: 200px;" alt="Generic placeholder image">
+                      </a>
+                      <center><h6>
+                        <a href="/detailbuku?buku_id={{ $buku->id }}" class="judul" > {{ $buku->judul }}</a>
+                      </h6></center>
+                      <h6>ISBN : {{ $buku->isbn }}</h6>
+                      <h6>{{ $buku->tahun }}</h6>
+                      <div class="tempat">
+                        <i class="fa fa-map-marker"></i> {{ $buku->harga }}
+                      </div>
+                      <br>
+              </div>
+            @endforeach
 
-          @if(isset($_GET['kot']))
-          <div  class="col-md-12">
-            @if(count($matchedBukusK) > 0)
-              <h2>{{ $kotaName }}</h2>
-              @foreach($matchedBukusK as $buku)
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                    <a href="#" >
-                        <img class="img-responsive img-thumbnail" src="{{ URL::to('uploads/file/'.$buku->gambar) }}" style="width: 150px; height: 200px;" alt="Generic placeholder image">
-                    </a>
-                    <center><h6>
-                      <a href="/detailbuku?buku_id={{ $buku->id }}" class="judul" > {{ $buku->judul }}</a>
-                    </h6></center>
-                    <h6>ISBN : {{ $buku->isbn }}</h6>
-                    <h6>{{ $buku->tahun }}</h6>
-                    <div class="tempat">
-                      <i class="fa fa-map-marker"></i> {{ $buku->harga }}
-                    </div>
-                    <br>
-                </div>
-              @endforeach
             @else
-              <p class="alert alert-success"> books will be added soon</p>
-            @endif
-          </div>
+              <div class="card-panel red darken-3 white-text">Oops.. Buku <b>{{$query}}</b> Tidak Ditemukan</div>
           @endif
-          
-          @if(isset($_GET['cat']))
-          <div  class="col-md-12">
-            @if(count($matchedBukus) > 0)
-              <h2>{{ $kategoriName }}</h2>
-              @foreach($matchedBukus as $buku)
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                    <a href="#" >
-                        <img class="img-responsive img-thumbnail" src="{{ URL::to('uploads/file/'.$buku->gambar) }}" style="width: 150px; height: 200px;" alt="Generic placeholder image">
-                    </a>
-                    <center><h6>
-                      <a href="/detailbuku?buku_id={{ $buku->id }}" class="judul" > {{ $buku->judul }}</a>
-                    </h6></center>
-                    <h6>ISBN : {{ $buku->isbn }}</h6>
-                    <h6>{{ $buku->tahun }}</h6>
-                    <div class="tempat">
-                      <i class="fa fa-map-marker"></i> {{ $buku->harga }}
-                    </div>
-                    <br>
-                </div>
-              @endforeach
-            @else
-              <p class="alert alert-success"><b>{{ $kategoriName }}</b> books will be added soon</p>
-            @endif
-          </div>
-
-          @endif
-
-              
-                @php
-                  $i=0;
-                  $jumlahData = 6;
-                @endphp
-
-              @foreach($bukus as $buku)
-                @php
-                  if ($i++ % $jumlahData == 0) {
-                    echo "<div class='row margin-bottom-10'>";
-                  }
-                @endphp
-                
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                  <a href="#" >
-                      <img class="img-responsive img-thumbnail" src="{{ URL::to('uploads/file/'.$buku->gambar) }}" style="width: 150px; height: 200px;" alt="Generic placeholder image">
-                  </a>
-                  <center><h6>
-                    <a href="/detailbuku?buku_id={{ $buku->id }}" class="judul" > {{ $buku->judul }}</a>
-                  </h6></center>
-                  <h6>ISBN : {{ $buku->isbn }}</h6>
-                  <h6>{{ $buku->tahun }}</h6>
-                  <div class="tempat">
-                    <i class="fa fa-map-marker"></i> {{ $buku->harga }}
-                  </div>
-                  <br>
-                </div>
-
-                @php
-                  if ($i % $jumlahData == 0 || $i == $bukus->count()) {
-                      echo "</div>";
-                  }
-                @endphp
-              @endforeach
-                
-            
+            </div>            
             
           </div>
         </div>
@@ -241,6 +172,5 @@
   <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
 </body>
-
 
 </html>

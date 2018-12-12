@@ -73,6 +73,7 @@
                         <h6>Penerbit : {{ $buku->penerbit }}</h6>
                         <h6>ISBN : {{ $buku->isbn }}</h6>
                         <h6>Tahun : {{ $buku->tahun }}</h6>
+                        <h6>Stok : {{ $buku->stok }}</h6>
                         <div class="tempat">
                             <i class="fa fa-map-marker"></i> {{ $buku->harga }}
                         </div>

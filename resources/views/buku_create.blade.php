@@ -140,7 +140,7 @@
                   <label for="kategori_id">Kategori:</label>
                         <select name="kategori_id" required >
                             <option selected disabled>Pilih Kategori</option>
-                            @foreach($kate as $item)
+                            @foreach($kategoris as $item)
                             <option value="{{ $item->id }}" class="form-control">{{ $item->kategori_name }}</option>
                             @endforeach
                         </select>
@@ -164,11 +164,15 @@
                 </div>
                 <div class="form-group">
                     <label for="harga">Harga:</label>
-                    <input tye="text" class="form-control" id="harga" name="harga"></textarea>
+                    <input type="text" class="form-control" id="harga" name="harga"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="deskripsi">Deskripsi:</label>
-                    <input tye="text" class="form-control" id="deskripsi" name="harga"></textarea>
+                    <input type="text" class="form-control" id="deskripsi" name="deskripsi"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="stok">Stok:</label>
+                    <input type="number" class="form-control" id="stok" name="stok"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-md btn-primary">Submit</button>

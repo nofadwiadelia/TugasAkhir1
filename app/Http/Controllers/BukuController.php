@@ -41,10 +41,11 @@ class BukuController extends Controller
      */
     public function create()
     {
-        $kate = Kategori::select('id', 'kategori_name')->get();
+        $bukus = Buku::all();
+        $kategoris = Kategori::select('id', 'kategori_name')->get();
         $kotas = Kota::select('id', 'kota_name')->get();
 
-        return view('buku_create',compact('kate'),compact('kotas'));
+        return view('buku_create',compact('bukus','kategoris','kotas'));
     }
 
     /**
@@ -55,6 +56,7 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
+        
         $bukus = new Buku();
         $gambar = $request->file('gambar');
         $ext = $gambar->getClientOriginalExtension();
@@ -70,6 +72,7 @@ class BukuController extends Controller
         $bukus->kota_id = $request->kota_id;
         $bukus->harga = $request->harga;
         $bukus->deskripsi = $request->deskripsi;
+        $bukus->stok = $request->stok;
         $bukus->save();
         return redirect()->route('buku.index')->with('alert-success','Berhasil Menambahkan Data!');
     }
@@ -129,6 +132,7 @@ class BukuController extends Controller
         $bukus->kota_id = $request->kota_id;
         $bukus->harga = $request->harga;
         $bukus->deskripsi = $request->deskripsi;
+        $bukus->stok = $request->stok;
         $bukus->save();
         return redirect()->route('buku.index')->with(
         'alert-success','Data berhasil diubah!');

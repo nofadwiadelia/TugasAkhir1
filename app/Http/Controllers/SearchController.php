@@ -27,7 +27,30 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index(){
+        $bukus = Buku::all();
+        $kategoris = Kategori::all();
+        $kategoriId = @$_GET['cat'];
+        $matchedBukus = null; $kategoriName = null;
+        if($kategoriId){
+            $kategoriName = Kategori::find($kategoriId)->kategori_name;
+            $matchedBukus = Buku::where('kategori_id', $kategoriId)->get();
+        }
+
+        $kotas = Kota::select('id', 'kota_name')->get();
+
+        $kotas = Kota::all();
+        $kotaId = @$_GET['kot'];
+        $matchedBukusK = null; $kotaName = null;
+        if($kotaId){
+            $kotaName = Kota::find($kotaId)->kota_name;
+            $matchedBukusK = Buku::where('kota_id', $kotaId)->get();
+        }
+        return view('inputsearch',compact('bukus','kategoris','kotas', 'matchedBukus','matchedBukusK','kategoriName','kotaName'));
+    }
+
+    public function searching(Request $request)
     {
         $bukus = Buku::all();
         $kategoris = Kategori::all();
@@ -47,21 +70,13 @@ class SearchController extends Controller
             $kotaName = Kota::find($kotaId)->kota_name;
             $matchedBukusK = Buku::where('kota_id', $kotaId)->get();
         }
-
+        // $keyword = 'Harry';
+        $query = $request->keyword;
+        $hasil = Buku::where('judul', 'LIKE', '%' . $query . '%')->get();
 
         $bukus = Buku::all();
-
-        return view('search',compact('kategoris','kotas','matchedBukus','matchedBukusK','kategoriName','kotaName','bukus','kotas'));
-        
-    }
-    
-        
-    public function search(Request $request){
-        $query = $request->get('q');
-        $hasil = Buku::where('judul', 'LIKE', '%' . $query . '%')->get();
- 
-        return view('search', compact('hasil', 'query'));
-
+        // dd($hasil);
+        return view('hasilsearch',compact('kategoris','kotas','matchedBukus','matchedBukusK','kategoriName','kotaName','bukus','kotas','query','hasil'));
     }
     
 

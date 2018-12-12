@@ -62,8 +62,12 @@
                     <input type="text" class="form-control" id="harga" name="harga" value="{{ $bukus->harga }}">
                 </div>
                 <div class="form-group">
-                    <label for="deskripsi">Harga:</label>
+                    <label for="deskripsi">Deskripsi:</label>
                     <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $bukus->deskripsi }}">
+                </div>
+                <div class="form-group">
+                    <label for="stok">Stok:</label>
+                    <input type="number" class="form-control" id="stok" name="stok" value="{{ $bukus->stok }}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-md btn-primary">Submit</button>
